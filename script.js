@@ -2,11 +2,15 @@ const numButtons = document.querySelectorAll('.num');
 const textField = document.querySelector('#textField');
 const operators = document.querySelectorAll('.operators');
 const equal = document.querySelector('.equal');
+const clearButton = document.querySelector('.clear');
 textField.value = ' ';;
-let numbers = [];
 let displayValue = textField.value;
 equal.addEventListener('click',(e) => {
-
+    let answer = Math.round(evaluate(textField.value));
+    textField.value = answer;
+});
+clearButton.addEventListener('click', (e) => {
+    textField.value = '';
 });
 operators.forEach((button) => {
     button.addEventListener('click', (e) => {
@@ -15,9 +19,10 @@ operators.forEach((button) => {
 });
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        textField.value += button.textContent;
+        textField.value +=  button.textContent;
         displayValue = textField.value;
-        skewer.log(displayValue);
+
+
 
     });
 });
@@ -61,7 +66,7 @@ function operate(operator,num1,num2) {
     case '-':
         return subtract(num1,num2);
         break;
-    case '*':
+    case 'x':
         return multiply(num1,num2);
         break;
     case '/':
@@ -89,14 +94,15 @@ function removeWhiteSpace(string) {
 
 }
 function evaluate(string) {
-    let displayValue =  removeWhiteSpace(textField.value);
+    let displayValue  =  removeWhiteSpace(textField.value);
     let answer = 0;
     let operations = [];
     let num = '';
+    let numbers = [];
     string += '=';
     for(let i = 0; i < string.length; i++) {
         if(string.charAt(i) == '+' || string.charAt(i) == '-' ||
-           string.charAt(i) == '/' || string.charAt(i) == '*') {
+           string.charAt(i) == '/' || string.charAt(i) == 'x') {
             numbers.push(parseInt(num));
             operations.push(string.charAt(i));
             num = ' ';
@@ -107,8 +113,11 @@ function evaluate(string) {
         }
             num += string.charAt(i);
     }
+    let c = operateAll(operations,numbers);
+    numbers = {};
+    operations = {};
 
-     return operateAll(operations,numbers);
+    return c;
 }
 function operateAll(operations,arrayOfNumbers) {
     let a = 1;
@@ -122,4 +131,4 @@ function operateAll(operations,arrayOfNumbers) {
 
 }
 
-skewer.log(evaluate('45+45+30*100'));
+
