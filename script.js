@@ -6,7 +6,7 @@ const clearButton = document.querySelector('.clear');
 textField.value = ' ';;
 let displayValue = textField.value;
 equal.addEventListener('click',(e) => {
-    let answer = Math.round(evaluate(textField.value));
+    let answer = Math.round(evaluate(textField.value) * 100) / 100;
     textField.value = answer;
 });
 clearButton.addEventListener('click', (e) => {
@@ -66,10 +66,10 @@ function operate(operator,num1,num2) {
     case '-':
         return subtract(num1,num2);
         break;
-    case 'x':
+    case '×':
         return multiply(num1,num2);
         break;
-    case '/':
+    case '÷':
         return divide(num1,num2);
         break;
     default:
@@ -102,7 +102,7 @@ function evaluate(string) {
     string += '=';
     for(let i = 0; i < string.length; i++) {
         if(string.charAt(i) == '+' || string.charAt(i) == '-' ||
-           string.charAt(i) == '/' || string.charAt(i) == 'x') {
+           string.charAt(i) == '÷' || string.charAt(i) == '×') {
             numbers.push(parseInt(num));
             operations.push(string.charAt(i));
             num = ' ';
