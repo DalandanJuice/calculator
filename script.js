@@ -1,29 +1,26 @@
 const numButtons = document.querySelectorAll('.num');
-const textField = document.querySelector('#textField');
+const textField = document.querySelector('.textField');
 const operators = document.querySelectorAll('.operators');
 const equal = document.querySelector('.equal');
 const clearButton = document.querySelector('.clear');
 textField.value = ' ';;
 let displayValue = textField.value;
 equal.addEventListener('click',(e) => {
-    let answer = Math.round(evaluate(textField.value) * 100) / 100;
-    textField.value = answer;
+    let answer = Math.round(evaluate(textField.textContent) * 100) / 100;
+    textField.textContent = answer;
 });
 clearButton.addEventListener('click', (e) => {
-    textField.value = '';
+    textField.textContent = '';
 });
 operators.forEach((button) => {
     button.addEventListener('click', (e) => {
-        textField.value += button.textContent;
+        textField.textContent += button.textContent;
     });
 });
 numButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        textField.value +=  button.textContent;
+        textField.textContent +=  button.textContent;
         displayValue = textField.value;
-
-
-
     });
 });
 
@@ -125,7 +122,7 @@ function operateAll(operations,arrayOfNumbers) {
     for(let i = 0; i < operations.length; i++) {
         sum = operate(operations[i],sum,arrayOfNumbers[a]);
         a++;
-       
+
     }
     return sum;
 
